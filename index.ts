@@ -1,21 +1,24 @@
 import express from 'express';
 import pgPromise from 'pg-promise';
+const dotenv = require('dotenv').config();
 const app = express();
 const pgp = pgPromise({});
 const port = 3001;
 
 //var db = pgp("postgres://postgres:postgres@localhost:5432/postgres");
 
+console.log(process.env.DB_USER)
+
 var db = pgp({
-  user:'xjzjvafpqfhesd',
-  password: 'b4f830de56079652337172c970846276accad62a05663a6b6647ee54856b4314',
-  host: 'ec2-52-214-178-113.eu-west-1.compute.amazonaws.com',
+  user:process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
   port: 5432,
-  database: 'de1mlrehih6jb5',
+  database: process.env.DB_DATABASE,
   ssl: {
     rejectUnauthorized: false
   }
-})
+});
 
 app.use(express.json());
 
