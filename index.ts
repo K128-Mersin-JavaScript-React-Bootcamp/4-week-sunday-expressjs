@@ -1,11 +1,11 @@
-const express = require("express");
+import express from 'express';
+import pgPromise from 'pg-promise';
 const app = express();
+const pgp = pgPromise({});
 const port = 3001;
+var db = pgp("postgres://postgres:postgres@localhost:5432/postgres");
 
 app.use(express.json());
-
-var pgp = require("pg-promise")(/* options */);
-var db = pgp("postgres://postgres:postgres@localhost:5432/postgres");
 
 app.get("/", (req, res) => {
   db.query('SELECT id, name, surname FROM "MY_USERS"')
